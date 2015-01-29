@@ -270,16 +270,16 @@ Implementation of the [`stream.Transform` API][transform]
               i += @options.rowDelimiter.length
               @nextChar = chars.charAt i
               continue
-          if rtrim
-            if @closingQuote
-              @field = @field.substr 0, @closingQuote
-            else
-              @field = @field.trimRight()
+
           if (@options.auto_parse and @intRegexp.test(@field))
             @line.push parseInt(@field)
           else if (@options.auto_parse and @floatRegexp.test(@field))
             @line.push parseFloat(@field)
           else
+            if rtrim
+              @field = @field.trimRight()
+            if ltrim
+              @field = @field.trimLeft()
             @line.push @field
           @closingQuote = 0
           @field = ''
