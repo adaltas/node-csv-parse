@@ -35,32 +35,35 @@ describe 'write', ->
       next()
     parser.end()
 
-  it 'string randomly splited', (next) ->
+  it 'string randomly split, with trim enabled', (next) ->
     data = []
-    parser = parse()
+    parser = parse({ trim: true })
     parser.on 'readable', ->
       while(d = parser.read())
         data.push d
     parser.on 'finish', ->
       data.should.eql [
-        [ 'Test 0', '0', '"' ]
-        [ 'Test 1', '1', '"' ]
-        [ 'Test 2', '2', '"' ]
-        [ 'Test 3', '3', '"' ]
-        [ 'Test 4', '4', '"' ]
-        [ 'Test 5', '5', '"' ]
-        [ 'Test 6', '6', '"' ]
-        [ 'Test 7', '7', '"' ]
-        [ 'Test 8', '8', '"' ]
-        [ 'Test 9', '9', '"' ]
+        [ 'Test 0', '', '0,00', '"' ]
+        [ 'Test 1', '', '100000,100000', '"' ]
+        [ 'Test 2', '', '200000,200000', '"' ]
+        [ 'Test 3', '', '300000,300000', '"' ]
+        [ 'Test 4', '', '400000,400000', '"' ]
+        [ 'Test 5', '', '500000,500000', '"' ]
+        [ 'Test 6', '', '600000,600000', '"' ]
+        [ 'Test 7', '', '700000,700000', '"' ]
+        [ 'Test 8', '', '800000,800000', '"' ]
+        [ 'Test 9', '', '900000,900000', '"' ]
       ]
       next()
     buffer = ''
+    # Here we test having the calls to write fall at various places in the row,
+    # including in the middle of the cell.
     for i in [0...10]
-      buffer += ''.concat "Test #{i}", ',', i, ',', '""""', "\n"
-      if buffer.length > 250
-        parser.write buffer.substr 0, 250
-        buffer = buffer.substr 250
+      buffer += ''.concat " Test #{i} ", ',,', '" '+i*100000+","+i*10000
+      if buffer.length > 18
+        parser.write buffer.substr 0, 18
+        buffer = buffer.substr 18
+      buffer += ''.concat 0+' "', ',', '""""', "\n"
     parser.write buffer
     parser.end()
   
