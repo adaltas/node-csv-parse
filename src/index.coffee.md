@@ -10,6 +10,7 @@ Please look at the [README], the [project website][site] the [samples] and the
 
     stream = require 'stream'
     util = require 'util'
+    _ = require 'lodash'
 
 ## Usage
 
@@ -38,7 +39,7 @@ Callback approach, for ease of use:
         then callback = arguments[0]
         else options = arguments[0]
       options ?= {}
-      parser = new Parser options
+      parser = new Parser _.cloneDeep(options)
       if data
         process.nextTick ->
           parser.write data
