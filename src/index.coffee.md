@@ -92,6 +92,7 @@ Options are documented [here](http://csv.adaltas.com/parse/).
       @chunks = []
       @intRegexp = /^(\-|\+)?([1-9]+[0-9]*)$/
       @floatRegexp = /^(\-|\+)?([0-9]+(\.[0-9]+)?([eE][0-9]+)?|Infinity)$/
+      @booleanRegexp = /^(true)|(false)$/
       # @floatRegexp = /^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/
       @
 
@@ -259,6 +260,8 @@ Implementation of the [`stream.Transform` API][transform]
             @line.push parseInt(@field)
           else if (@options.auto_parse and @floatRegexp.test(@field))
             @line.push parseFloat(@field)
+          else if (@options.auto_parse and @booleanRegexp.test(@field))
+            @line.push @field == 'true'
           else
             @line.push @field
           @closingQuote = 0
