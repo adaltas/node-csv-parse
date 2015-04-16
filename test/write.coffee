@@ -4,7 +4,35 @@ should = require 'should'
 parse = if process.env.CSV_COV then require '../lib-cov' else require '../src'
 
 describe 'write', ->
-  
+
+  it 'should parse boolean literals if auto_parse is specified', (next) ->
+    data = []
+    parser = parse({ auto_parse: true })
+    parser.write """
+    true,false
+    TRUE,FALSE
+    " true","false "
+    """
+    parser.on 'readable', ->
+      while(d = parser.read())
+        data.push d
+    parser.on 'error', (err) ->
+      next err
+    parser.on 'finish', ->
+      data.should.eql [
+        [true,false]
+        ["TRUE","FALSE"]
+        [" true","false "]
+      ]
+      (typeof data[0][0]).should.eql 'boolean'
+      (typeof data[0][1]).should.eql 'boolean'
+      (typeof data[1][0]).should.eql 'string'
+      (typeof data[1][1]).should.eql 'string'
+      (typeof data[2][0]).should.eql 'string'
+      (typeof data[2][1]).should.eql 'string'
+      next()
+    parser.end()
+
   it 'should read numbers in property if auto_parse is specified', (next) ->
     data = []
     parser = parse({ auto_parse: true })
