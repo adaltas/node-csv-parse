@@ -30,9 +30,9 @@ describe 'columns', ->
   
   it 'enforced by user if array', (next) ->
     parse """
-    20322051544,1979,8.8017226E7,ABC,45,2000-01-01
-    28392898392,1974,8.8392926E7,DEF,23,2050-11-27
-    """, columns: ["FIELD_1", "FIELD_2", "FIELD_3", "FIELD_4", "FIELD_5", "FIELD_6"], (err, data) ->
+    20322051544,1979,8.8017226E7,ABC,45,SKIP,2000-01-01
+    28392898392,1974,8.8392926E7,DEF,23,SKIP,2050-11-27
+    """, columns: ["FIELD_1", "FIELD_2", "FIELD_3", "FIELD_4", "FIELD_5", false, "FIELD_6"], (err, data) ->
       return next err if err
       data.should.eql [
         "FIELD_1":"20322051544"
@@ -50,7 +50,7 @@ describe 'columns', ->
         "FIELD_6":"2050-11-27"
       ]
       next()
-  
+
   it 'returned by user with the help of the first line', (next) ->
     parse """
     FIELD_1,FIELD_2,FIELD_3,FIELD_4,FIELD_5,FIELD_6

@@ -165,6 +165,8 @@ Implementation of the [`stream.Transform` API][transform]
       if @options.columns?
         lineAsColumns = {}
         for field, i in line
+          if this.options.columns[i] == false
+            continue;
           lineAsColumns[@options.columns[i]] = field
         if @options.objname
           @push [lineAsColumns[@options.objname], lineAsColumns]
