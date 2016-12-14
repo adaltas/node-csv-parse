@@ -20,6 +20,6 @@ Usage: `records = parse(data, [options]`
         else
           records.push record
       parser.__write data, false
-      parser.__write data.end(), true if data instanceof Buffer
+      parser.__write decoder.end(data), true if data instanceof Buffer
       parser._flush (->)
       records
