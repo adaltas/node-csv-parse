@@ -189,9 +189,9 @@ Implementation of the [`stream.Transform` API][transform]
         if @options.relax_column_count
           @skipped_line_count++
         else if @options.columns?
-          throw Error "Number of columns on line #{@lines} does not match header"
+          throw Error "Number of columns on line #{@lines-1} does not match header"
         else
-          throw Error "Number of columns is inconsistent on line #{@lines}"
+          throw Error "Number of columns is inconsistent on line #{@lines-1}"
       else
         @count++
       # Convert to object if columns
