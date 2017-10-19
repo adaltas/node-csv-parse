@@ -100,7 +100,6 @@ Options are documented [here](http://csv.adaltas.com/parse/).
       @options.rtrim ?= false
       @options.auto_parse ?= false
       @options.auto_parse_date ?= false
-      @options.auto_parse_custom ?= false
       @options.relax ?= false
       @options.relax_column_count ?= false
       @options.skip_empty_lines ?= false
@@ -244,6 +243,9 @@ Implementation of the [`stream.Transform` API][transform]
           @is_float.test value
       auto_parse = (value) =>
         return value unless @options.auto_parse
+        if typeof @options.auto_parse is 'function'
+          return @options.auto_parse value
+        # auto_parse == true
         if is_int value
           value = parseInt value
         else if is_float value
@@ -251,8 +253,6 @@ Implementation of the [`stream.Transform` API][transform]
         else if @options.auto_parse_date
           m = Date.parse value
           value = new Date m unless isNaN m
-        else if @options.auto_parse_custom
-          value = @options.auto_parse_custom(value)
         value
       ltrim = @options.trim or @options.ltrim
       rtrim = @options.trim or @options.rtrim
