@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Trunk
+## Version 2.0.1
 
 source: remove unreferenced variables #179
 package: start running tests in preversion
