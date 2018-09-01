@@ -114,6 +114,7 @@ Options are documented [here](http://csv.adaltas.com/parse/).
       @options.max_limit_on_data_read ?= 128000
       @options.skip_lines_with_empty_values ?= false
       @options.skip_lines_with_error ?= false
+      @options.encoding ?= 'utf-8'
       # Counters
       # lines = count + skipped_line_count + empty_line_count
       @lines = 0 # Number of lines encountered in the source dataset
@@ -127,7 +128,7 @@ Options are documented [here](http://csv.adaltas.com/parse/).
       @is_float = (value) -> (value - parseFloat( value ) + 1) >= 0 # Borrowed from jquery
       # Internal state
       @_ =
-        decoder: new StringDecoder()
+        decoder: new StringDecoder(@options.encoding)
         quoting: false
         commenting: false
         field: null
