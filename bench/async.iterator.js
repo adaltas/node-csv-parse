@@ -5,7 +5,6 @@ const fs = require('fs')
 const os = require('os')
 const path = require('path')
 const stream = require('stream')
-const pad = require('pad')
 const finished = util.promisify(stream.finished)
 const parse = require('..')
 const generate = require('csv-generate')
@@ -52,9 +51,9 @@ const print = function(results){
   console.log([
     '|',
     [
-      pad(' length ', 10 + 2),
-      pad(' nanoseconds ', 15 + 2),
-      pad(' throughput ', 15 + 2),
+      ' length '.padEnd(10 + 2),
+      ' nanoseconds '.padEnd(15 + 2),
+      ' throughput '.padEnd(15 + 2),
     ].join('|'),
     '|',
   ].join(''))
