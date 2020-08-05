@@ -224,4 +224,33 @@ declare namespace parse {
          */
         readonly invalid_field_length: number;
     }
+    
+    class CsvError extends Error {
+        readonly code: CsvErrorCode;
+        [key: string]: any;
+    
+        constructor(code: CsvErrorCode, message: string | string[], ...contexts: any[]);
+    }
+    
+    enum CsvErrorCode { 
+        InvalidOptionBOM = 'CSV_INVALID_OPTION_BOM',
+        InvalidOptionCast = 'CSV_INVALID_OPTION_CAST',
+        InvalidOptionCastDate = 'CSV_INVALID_OPTION_CAST_DATE',
+        InvalidOptionColumns = 'CSV_INVALID_OPTION_COLUMNS',
+        InvalidOptionColumnsDuplicatesToArray = 'CSV_INVALID_OPTION_COLUMNS_DUPLICATES_TO_ARRAY',
+        InvalidOptionComment = 'CSV_INVALID_OPTION_COMMENT',
+        InvalidOptionDelimiter = 'CSV_INVALID_OPTION_DELIMITER',
+        InvalidOptionOnRecord = 'CSV_INVALID_OPTION_ON_RECORD',
+        InvalidOptionClosingQuote = 'CSV_INVALID_CLOSING_QUOTE',
+        InvalidOptionOpeningQuote = 'INVALID_OPENING_QUOTE',
+        InvalidColumnMapping = 'CSV_INVALID_COLUMN_MAPPING',
+        InvalidArgument = 'CSV_INVALID_ARGUMENT',
+        InvalidColumnDefinition = 'CSV_INVALID_COLUMN_DEFINITION',
+        OptionColumnsMissingName = 'CSV_OPTION_COLUMNS_MISSING_NAME',
+        MaxRecordSize = 'CSV_MAX_RECORD_SIZE',
+        NonTrimableCharAfterClosingQuote = 'CSV_NON_TRIMABLE_CHAR_AFTER_CLOSING_QUOTE',
+        QuoteNotClosed = 'CSV_QUOTE_NOT_CLOSED',
+        InconsistentRecordLength = 'CSV_INCONSISTENT_RECORD_LENGTH',
+        RecordDontMatchColumnsLength = 'CSV_RECORD_DONT_MATCH_COLUMNS_LENGTH'
+    }
 }
