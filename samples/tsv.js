@@ -1,11 +1,22 @@
+const parse = require('..');
+const assert = require('assert')
 
-// The package "should" must be installed:   
-// `npm install should`
-
-parse = require('..');
-should = require('should');
-
-parse( "1	2	3\ra	b	c", {delimiter: '\t'}, function(err, data){
+parse(
+`1	2	3
+a	b	c`, {
+  delimiter: '\t'
+}, function(err, data){
   if(err) throw err;
-  data.should.eql([ [ '1', '2', '3' ], [ 'a', 'b', 'c' ] ]);
+  assert.deepStrictEqual(data, [ [ '1', '2', '3' ], [ 'a', 'b', 'c' ] ]);
+});
+
+parse(
+`"1"	"2"	"3"
+"a"	"b"	"c"`, {
+  delimiter: '\t',
+  quote: "\"",
+  columns: true
+}, function(err, data){
+  if(err) throw err;
+  assert.deepStrictEqual(data, [ { 1: "a", 2: "b", 3: "c" } ]);
 });
