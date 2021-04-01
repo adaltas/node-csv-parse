@@ -12,7 +12,7 @@ ASS;Advanced SubStation Alpha (ASS), technically SSA v4+, is a script for more a
   columns: true,
   ignore_last_delimiters: 10
 }, function(err, records){
-  assert.deepEqual(records, [{
+  assert.deepStrictEqual(records, [{
       format: 'CSV',
       description: 'CSV delimited text file that uses a comma, by default, to separate values.'
     },{
