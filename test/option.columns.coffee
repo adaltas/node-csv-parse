@@ -98,12 +98,12 @@ describe 'Option `columns`', ->
         ] unless err
         next err
 
-    it 'header detection honors skip_lines_with_empty_values', (next) ->
+    it 'header detection honors skip_records_with_empty_values', (next) ->
       parse """
       ,,
       a,b,c
       1,2,3
-      """, columns: true, skip_lines_with_empty_values: true, (err, data) ->
+      """, columns: true, skip_records_with_empty_values: true, (err, data) ->
         data.should.eql [
           {a: "1", b: "2", c: "3"}
         ] unless err
