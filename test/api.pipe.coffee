@@ -2,7 +2,7 @@
 fs = require 'fs'
 { Readable } = require 'stream'
 generate = require 'csv-generate'
-parse = require '../lib'
+parse = require('esm')(module)('../lib/index.mjs').default
 
 describe 'API pipe', ->
 

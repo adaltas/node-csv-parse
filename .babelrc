@@ -1,4 +1,1 @@
-{
-  "presets": ["@babel/preset-env"],
-  "sourceRoot": "./lib"
-}
+{ "presets": ["@babel/env"] }

@@ -1,5 +1,5 @@
 
-parse = require '..'
+parse = require('esm')(module)('../lib/index.mjs').default
 assert_error = require './api.assert_error'
 
 describe 'API error', ->

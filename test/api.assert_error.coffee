@@ -1,5 +1,6 @@
 
-{CsvError} = require '..'
+# {CsvError} = require '../lib/index.mjs'
+{CsvError} = require('esm')(module)('../lib/index.mjs')
 ResizeableBuffer = require '../lib/ResizeableBuffer'
 
 module.exports = assert_error = (err, assert = {}, exhaustive = false) ->

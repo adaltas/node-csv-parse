@@ -1,13 +1,15 @@
 
+
 generate = require 'csv-generate'
-parse = require '../lib'
+parse = require('esm')(module)('../lib/index.mjs').default
+{Parser} = require('esm')(module)('../lib/index.mjs')
 assert_error = require './api.assert_error'
 
 describe 'API arguments', ->
 
   it 'exports Parser class', ->
-    parse.Parser.should.be.a.Function
-  
+    Parser.should.be.a.Function
+
   describe '0 arg', ->
 
     it 'no arguments', (next) ->
@@ -23,7 +25,7 @@ describe 'API arguments', ->
         next()
       parser.write 'field_1,field_2\nvalue 1,value 2'
       parser.end()
-    
+
   describe '1 arg', ->
 
     it 'callback:function; pipe data and get result in callback', (next) ->
@@ -45,7 +47,7 @@ describe 'API arguments', ->
         next()
       parser.write 'field_1,field_2\nvalue 1,value 2'
       parser.end()
-    
+
   describe '2 args', ->
 
     it 'data:string, options:object; read stream', (next) ->
@@ -130,4 +132,3 @@ describe 'API arguments', ->
       ).should.throw
         message: 'Invalid argument: got undefined at index 2'
         code: 'CSV_INVALID_ARGUMENT'
-      

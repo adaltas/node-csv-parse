@@ -1,5 +1,5 @@
 
-parse = require '../lib'
+parse = require('esm')(module)('../lib/index.mjs').default
 generate = require 'csv-generate'
 fs = require 'fs'
 os = require 'os'

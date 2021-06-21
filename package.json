@@ -77,8 +77,7 @@
     "throw-deprecation": true,
     "require": [
       "should",
-      "coffeescript/register",
-      "ts-node/register"
+      "./coffee.config.js"
     ],
     "inline-diffs": true,
     "timeout": 40000,
@@ -99,5 +98,8 @@
     "lint": "eslint lib/*.js",
     "test": "npm run lint && TS_NODE_COMPILER_OPTIONS='{\"strictNullChecks\":true}' mocha test/**/*.{coffee,ts}"
   },
-  "types": "./lib/index.d.ts"
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
 }
